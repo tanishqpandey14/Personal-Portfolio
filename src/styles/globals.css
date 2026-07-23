@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #fdf2f4;
+  --color-bg-secondary: #fbebf0;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #fcf5f7;
+  --color-bg-glass: rgba(255, 255, 255, 0.85);
+
+  --color-text-primary: #1f1118;
+  --color-text-secondary: #58414d;
+  --color-text-muted: #8c7380;
+
+  --color-brand-primary: #800a38;
+  --color-brand-primary-hover: #610528;
+  --color-brand-secondary: #a855f7;
+  --color-brand-accent: #ec4899;
+  --color-brand-badge: #ede9fe;
+
+  --color-border-light: rgba(229, 205, 216, 0.5);
+  --color-border-medium: rgba(200, 160, 180, 0.6);
+}
+
+/* Dark Theme Overrides */
+html.dark {
+  --color-bg-primary: #0f111a;
+  --color-bg-secondary: #161926;
+  --color-bg-card: #1c2033;
+  --color-bg-card-hover: #242942;
+  --color-bg-glass: rgba(28, 32, 51, 0.85);
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-brand-primary: #9f1239;
+  --color-brand-primary-hover: #be123c;
+  --color-brand-secondary: #c084fc;
+  --color-brand-accent: #f472b6;
+  --color-brand-badge: rgba(168, 85, 247, 0.15);
+
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.15);
+}
+
+/* 
+  ⚡ ULTRA-FAST THEME TRANSITION
+*/
+body,
+aside,
+nav,
+main,
+section,
+div,
+button,
+a,
+p,
+h1,
+h2,
+h3,
+span {
+  transition: background-color 0.08s ease-out, border-color 0.08s ease-out, color 0.08s ease-out;
+}
+
+/* Disable transitions for inline icons & SVGs */
+svg,
+svg * {
+  transition: none !important;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-primary);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
