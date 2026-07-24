@@ -17,64 +17,72 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="scroll-mt-24 min-h-[calc(100vh-160px)] flex flex-col justify-center items-center text-center py-6 sm:py-12"
+      className="scroll-mt-24 min-h-[calc(100vh-160px)] flex flex-col justify-center items-center py-6 px-4"
     >
+      {/* ==========================================
+        COMPACT HERO CARD
+        ========================================== */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-3xl mx-auto space-y-6 sm:space-y-8"
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-4xl mx-auto rounded-4xl bg-bg-card border border-border-light shadow-md px-6 pt-8 pb-5 sm:px-10 sm:pt-10 sm:pb-6 text-center space-y-5 sm:space-y-6 relative overflow-hidden transition-all duration-300"
       >
+        {/* Soft Background Accent Glow inside the card */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-28 bg-linear-to-b from-brand-primary/10 via-brand-secondary/5 to-transparent blur-2xl pointer-events-none rounded-full" />
+
         {/* Main Title & Headline */}
-        <div className="space-y-3 sm:space-y-4">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-text-primary leading-tight">
-            Hello, I'm{" "}
+        <div className="relative z-10 space-y-2">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-text-primary leading-tight">
+            Hello, I&apos;m{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-primary via-brand-secondary to-brand-accent">
               {personal.name}
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-brand-secondary">
-            {personal.tagline}
+          <p className="text-lg sm:text-xl font-bold text-brand-secondary">
+            {personal.tagline || "MERN Stack Developer & Frontend Specialist"}
           </p>
         </div>
 
         {/* Bio Paragraph */}
-        <p className="text-text-secondary text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed px-2">
+        <p className="relative z-10 text-text-secondary text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
           {personal.bio}
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2">
+        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+          {/* View My Work Button */}
           <a
             href="#projects"
             onClick={handleScrollToProjects}
-            className="px-6 py-3 rounded-xl bg-[#700c32] hover:bg-[#8a103e] text-white font-medium text-sm transition-all shadow-sm"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-medium text-sm transition-all shadow-sm flex items-center justify-center gap-2 group"
           >
-            <span>View My Work </span>
-            <span className="text-lg">→</span>
+            <span>View My Work</span>
+            <span className="text-base transition-transform group-hover:translate-x-0.5">→</span>
           </a>
 
+          {/* Download Resume Button */}
           <a
             href={personal.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 rounded-xl bg-white hover:bg-neutral-50 text-[#700c32] border border-[#700c32]/20 font-medium text-sm transition-all shadow-xs flex items-center gap-2"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-bg-primary hover:bg-bg-primary/80 text-text-primary border border-border-medium font-medium text-sm transition-all shadow-2xs flex items-center justify-center gap-2"
           >
             <span>Download Resume</span>
             {getIcon("download", "w-4 h-4 text-brand-secondary")}
           </a>
         </div>
 
-        {/* Social Buttons Container */}
-        <div className="flex items-center justify-center gap-4 pt-4">
+        {/* Social Links Row (Compact Padding) */}
+        <div className="relative z-10 flex items-center justify-center gap-3.5 pt-4 pb-1 border-t border-border-light/60">
           <a
             href={personal.socials.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
-            className="p-3.5 rounded-full bg-bg-card hover:bg-bg-cardHover text-text-primary border border-border-light shadow-subtle hover:border-brand-secondary/40 hover:scale-110 transition-all duration-200"
+            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-text-primary border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
           >
-            {getIcon("github", "w-5 h-5")}
+            {getIcon("github", "w-4 h-4")}
           </a>
 
           <a
@@ -82,17 +90,17 @@ export const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
-            className="p-3.5 rounded-full bg-bg-card hover:bg-bg-cardHover text-[#0A66C2] border border-border-light shadow-subtle hover:border-brand-secondary/40 hover:scale-110 transition-all duration-200"
+            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-[#0A66C2] border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
           >
-            {getIcon("linkedin", "w-5 h-5")}
+            {getIcon("linkedin", "w-4 h-4")}
           </a>
 
           <a
             href={`mailto:${personal.email}`}
             aria-label="Email Me"
-            className="p-3.5 rounded-full bg-bg-card hover:bg-bg-cardHover text-brand-secondary border border-border-light shadow-subtle hover:border-brand-secondary/40 hover:scale-110 transition-all duration-200"
+            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-brand-secondary border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
           >
-            {getIcon("email", "w-5 h-5")}
+            {getIcon("email", "w-4 h-4")}
           </a>
         </div>
       </motion.div>

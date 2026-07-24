@@ -3,22 +3,29 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  // Set default to "light" if no saved theme exists in localStorage
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "light";
+    const savedTheme = localStorage.getItem("portfolio_theme");
+    return savedTheme || "light"; // Default is always light
   });
 
   useEffect(() => {
     const root = document.documentElement;
+
     if (theme === "dark") {
       root.classList.add("dark");
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+
+    // Save user choice to localStorage
+    localStorage.getItem("portfolio_theme") && localStorage.setItem("portfolio_theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("portfolio_theme", newTheme);
   };
 
   return (
@@ -28,10 +35,4 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-};
+export const useTheme = () => useContext(ThemeContext);
