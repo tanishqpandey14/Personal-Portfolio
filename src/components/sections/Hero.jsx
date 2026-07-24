@@ -40,7 +40,7 @@ export const Hero = () => {
             </span>
           </h1>
           <p className="text-lg sm:text-xl font-bold text-brand-secondary">
-            {personal.tagline || "MERN Stack Developer & Frontend Specialist"}
+            {personal.tagline || "Full Stack Developer"}
           </p>
         </div>
 
