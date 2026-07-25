@@ -100,7 +100,7 @@ export const PORTFOLIO_DATA = {
       id: "edu-1",
       institution: "St. Joseph Convent Ranjhi, Jabalpur",
       period: "Mar 2022 - May 2023",
-      degree: "Class 12th - Physics, Chemistry, Mathematics",
+      degree: "CBSE | Class 12th - Physics, Chemistry, Mathematics",
     },
     {
       id: "edu-2",
