@@ -5,7 +5,7 @@ export const PORTFOLIO_DATA = {
     avatarInitials: "TP",
     avatarUrl: "",
     email: "work.tanishqpandey@gmail.com",
-    phone: "+91 62657 01426",
+    phone: "+91 6265701426",
     location: "Pune, Maharashtra",
     college:
       "Vellore Institute of Technology - B.Tech Computer Science Engineering",
