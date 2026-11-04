@@ -1,49 +1,64 @@
-import React from "react";
+import { useEffect, useRef } from "react";
+import { HiMenuAlt2 } from "react-icons/hi";
 import { PORTFOLIO_DATA } from "../../constants/portfolioData";
 import { useActiveSection } from "../../hooks/useActiveSection";
-import { HiMenuAlt2 } from "react-icons/hi";
+
+const { navLinks } = PORTFOLIO_DATA;
+// Module-level so the array identity is stable between renders
+const SECTION_IDS = ["hero", ...navLinks.map((l) => l.href.replace("#", ""))];
 
 export const Navbar = ({ onOpenSidebar }) => {
-  const sectionIds = ["hero", "about", "skills", "education", "projects", "github", "contact"];
-  const activeSection = useActiveSection(sectionIds, 180);
+  const activeSection = useActiveSection(SECTION_IDS, 180);
+  const navRef = useRef(null);
+
+  // Keep the active link centred when the pill has to scroll sideways
+  useEffect(() => {
+    const nav = navRef.current;
+    const active = nav?.querySelector('[aria-current="true"]');
+    if (!nav || !active) return;
+    nav.scrollTo({
+      left: active.offsetLeft - nav.clientWidth / 2 + active.clientWidth / 2,
+      behavior: "smooth",
+    });
+  }, [activeSection]);
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    const targetId = href.replace("#", "");
-
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    document
+      .getElementById(href.replace("#", ""))
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <div className="fixed top-2 sm:top-6 left-0 lg:left-80 right-0 z-30 flex items-center justify-center px-2 sm:px-4 pointer-events-none">
-      <div className="flex items-center gap-1.5 max-w-full pointer-events-auto">
-        {/* Mobile Hamburger Menu Button */}
+    <div className="fixed top-3 sm:top-5 left-0 right-0 lg:left-88 lg:right-10 z-30 flex items-center justify-center px-3 sm:px-4 pointer-events-none">
+      <div className="flex items-center gap-2 max-w-full pointer-events-auto">
+        {/* Mobile hamburger */}
         <button
           onClick={onOpenSidebar}
-          className="lg:hidden p-2 rounded-full bg-bg-card/90 backdrop-blur-md border border-border-light shadow-card text-brand-primary hover:bg-bg-secondary transition-all shrink-0 cursor-pointer"
-          aria-label="Open Sidebar"
+          className="glass lg:hidden grid place-items-center w-10 h-10 rounded-full text-text-primary hover:text-lime transition-colors shrink-0 cursor-pointer"
+          aria-label="Open sidebar"
         >
-          <HiMenuAlt2 className="w-4 h-4 sm:w-5 sm:h-5" />
+          <HiMenuAlt2 className="w-5 h-5" />
         </button>
 
-        {/* Floating Nav Capsule */}
-        <nav className="bg-bg-glass backdrop-blur-md border border-border-light shadow-glass rounded-full px-2 py-1 sm:px-6 sm:py-3 flex items-center gap-1 sm:gap-3 overflow-x-auto no-scrollbar max-w-[calc(100vw-70px)] sm:max-w-max">
-          {PORTFOLIO_DATA.navLinks.map((link) => {
-            const sectionId = link.href.replace("#", "");
-            const isActive = activeSection === sectionId;
-
+        {/* Floating glass capsule */}
+        <nav
+          ref={navRef}
+          aria-label="Sections"
+          className="glass relative rounded-full p-1 sm:p-1.5 flex items-center gap-0.5 sm:gap-1 overflow-x-auto no-scrollbar max-w-[calc(100vw-4.5rem)] lg:max-w-full"
+        >
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.replace("#", "");
             return (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`px-2.5 sm:px-5 py-1 sm:py-2 rounded-full text-xs sm:text-base font-semibold transition-all duration-200 whitespace-nowrap shrink-0 ${
+                aria-current={isActive ? "true" : undefined}
+                className={`px-3 sm:px-4 lg:px-3 xl:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm lg:text-[13px] xl:text-sm font-semibold whitespace-nowrap shrink-0 transition-colors duration-200 ${
                   isActive
-                    ? "bg-brand-badge text-brand-secondary shadow-xs"
-                    : "text-text-secondary hover:text-text-primary hover:bg-bg-secondary/50"
+                    ? "bg-pink text-black shadow-glow-pink"
+                    : "text-text-secondary hover:text-text-primary hover:bg-white/10"
                 }`}
               >
                 {link.name}

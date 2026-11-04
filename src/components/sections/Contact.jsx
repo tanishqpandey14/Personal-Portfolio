@@ -1,19 +1,33 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import {
+  HiOutlinePaperAirplane,
+  HiCheckCircle,
+  HiExclamationCircle,
+} from "react-icons/hi";
 import { PORTFOLIO_DATA } from "../../constants/portfolioData";
 import { getIcon } from "../../utils/iconUtils";
-import { HiOutlinePaperAirplane, HiCheckCircle, HiExclamationCircle } from "react-icons/hi";
+import { SectionHeader } from "../ui/SectionHeader";
+
+const inputClass =
+  "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-pink focus:ring-2 focus:ring-pink/30 transition-colors";
+const labelClass = "text-xs font-semibold text-text-secondary";
+
+const InfoRow = ({ icon, label, children }) => (
+  <div className="glass-chip flex items-center gap-3.5 p-3.5 rounded-2xl">
+    <div className="grid place-items-center w-11 h-11 rounded-xl bg-lime/10 border border-lime/25 text-lime shrink-0">
+      {getIcon(icon, "w-5 h-5")}
+    </div>
+    <div className="min-w-0">
+      <p className="text-xs font-medium text-text-muted">{label}</p>
+      {children}
+    </div>
+  </div>
+);
 
 export const Contact = () => {
   const { personal } = PORTFOLIO_DATA;
 
-  // Form State
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle"); // 'idle' | 'loading' | 'success' | 'error'
   const [responseMsg, setResponseMsg] = useState("");
 
@@ -59,120 +73,73 @@ export const Contact = () => {
         setStatus("error");
         setResponseMsg(result.message || "Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setResponseMsg("Failed to send message. Please check your network connection.");
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section id="contact" className="scroll-mt-28 pt-4 pb-12">
-      {/* Section Header */}
-      <div className="text-center mb-8 space-y-2">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
-          Let's Build Something Together
-        </h2>
-        <p className="text-text-secondary text-sm sm:text-base max-w-xl mx-auto">
-          Have a project in mind, a job opportunity, or just want to say hello? Drop a message below!
-        </p>
-      </div>
+    <section id="contact" className="scroll-mt-28 pb-6">
+      <SectionHeader
+        title="Let's Build Something Together"
+        subtitle="Have a project in mind, a job opportunity, or just want to say hello? Drop a message below."
+      />
 
-      {/* Two-Column Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch"
-      >
-        {/* Left Column: Contact Info Card */}
-        <motion.div
-          variants={itemVariants}
-          className="lg:col-span-5 bg-bg-card rounded-3xl p-6 sm:p-7 border border-border-light shadow-card flex flex-col justify-between"
-        >
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-bold text-text-primary">
-                Contact Information
-              </h3>
-              <p className="text-xs sm:text-sm text-text-secondary mt-1">
-                Feel free to reach out directly via email or connect through my social profiles.
-              </p>
-            </div>
-
-            <div className="space-y-3.5 pt-2">
-              {/* Email Info Card */}
-              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-bg-secondary/60 border border-border-light/50">
-                <div className="p-2.5 rounded-2xl bg-brand-badge text-brand-secondary shrink-0">
-                  {getIcon("email", "w-5 h-5")}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                    Email
-                  </p>
-                  <a
-                    href={`mailto:${personal.email}`}
-                    className="text-xs sm:text-sm font-semibold text-text-primary hover:text-brand-primary transition-colors truncate block mt-0.5"
-                  >
-                    {personal.email}
-                  </a>
-                </div>
-              </div>
-
-              {/* Location Info Card */}
-              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-bg-secondary/60 border border-border-light/50">
-                <div className="p-2.5 rounded-2xl bg-brand-badge text-brand-secondary shrink-0">
-                  {getIcon("location", "w-5 h-5")}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                    Location
-                  </p>
-                  <p className="text-xs sm:text-sm font-semibold text-text-primary mt-0.5">
-                    {personal.location}
-                  </p>
-                </div>
-              </div>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+        {/* Contact info */}
+        <div className="glass-card lg:col-span-5 rounded-3xl p-6 sm:p-7 space-y-6">
+          <div>
+            <h3 className="font-display text-2xl font-normal text-text-primary">
+              Contact information
+            </h3>
+            <p className="text-sm text-text-secondary mt-1.5">
+              Reach out directly by email, or connect through my social profiles.
+            </p>
           </div>
-        </motion.div>
 
-        {/* Right Column: Web3Forms Contact Form */}
-        <motion.div
-          variants={itemVariants}
-          className="lg:col-span-7 bg-bg-card rounded-3xl p-6 sm:p-7 border border-border-light shadow-card"
-        >
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name Input */}
-            <div className="space-y-1">
-              <label
-                htmlFor="name"
-                className="text-[11px] font-bold text-text-primary uppercase tracking-wider"
+          <div className="space-y-3">
+            <InfoRow icon="email" label="Email">
+              <a
+                href={`mailto:${personal.email}`}
+                className="text-sm font-semibold text-text-primary hover:text-pink transition-colors truncate block mt-0.5"
               >
-                Your Name
-              </label>
+                {personal.email}
+              </a>
+            </InfoRow>
+            <InfoRow icon="location" label="Location">
+              <p className="text-sm font-semibold text-text-primary mt-0.5">
+                {personal.location}
+              </p>
+            </InfoRow>
+            <InfoRow icon="github" label="GitHub">
+              <a
+                href={personal.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-text-primary hover:text-pink transition-colors truncate block mt-0.5"
+              >
+                {personal.socials.github.replace("https://", "")}
+              </a>
+            </InfoRow>
+            <InfoRow icon="linkedin" label="LinkedIn">
+              <a
+                href={personal.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-text-primary hover:text-pink transition-colors truncate block mt-0.5"
+              >
+                {personal.socials.linkedin.replace("https://www.", "").replace(/\/$/, "")}
+              </a>
+            </InfoRow>
+          </div>
+        </div>
+
+        {/* Form */}
+        <div className="glass-card lg:col-span-7 rounded-3xl p-6 sm:p-7">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <label htmlFor="name" className={labelClass}>Your name</label>
               <input
                 type="text"
                 id="name"
@@ -180,19 +147,13 @@ export const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full px-4 py-2.5 rounded-xl bg-bg-secondary border border-border-light text-text-primary placeholder:text-text-muted text-xs sm:text-sm focus:outline-none focus:border-brand-secondary transition-colors"
+                className={inputClass}
                 required
               />
             </div>
 
-            {/* Email Input */}
-            <div className="space-y-1">
-              <label
-                htmlFor="email"
-                className="text-[11px] font-bold text-text-primary uppercase tracking-wider"
-              >
-                Email Address
-              </label>
+            <div className="space-y-1.5">
+              <label htmlFor="email" className={labelClass}>Email address</label>
               <input
                 type="email"
                 id="email"
@@ -200,64 +161,62 @@ export const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
-                className="w-full px-4 py-2.5 rounded-xl bg-bg-secondary border border-border-light text-text-primary placeholder:text-text-muted text-xs sm:text-sm focus:outline-none focus:border-brand-secondary transition-colors"
+                className={inputClass}
                 required
               />
             </div>
 
-            {/* Message Input */}
-            <div className="space-y-1">
-              <label
-                htmlFor="message"
-                className="text-[11px] font-bold text-text-primary uppercase tracking-wider"
-              >
-                Message
-              </label>
+            <div className="space-y-1.5">
+              <label htmlFor="message" className={labelClass}>Message</label>
               <textarea
                 id="message"
                 name="message"
-                rows="3"
+                rows="4"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Tell me about your project or inquiry..."
-                className="w-full px-4 py-2.5 rounded-xl bg-bg-secondary border border-border-light text-text-primary placeholder:text-text-muted text-xs sm:text-sm focus:outline-none focus:border-brand-secondary transition-colors resize-none"
+                className={`${inputClass} resize-none`}
                 required
-              ></textarea>
+              />
             </div>
 
-            {/* Status Feedback Message */}
             {status === "success" && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium flex items-center gap-2">
-                <HiCheckCircle className="w-4 h-4 shrink-0" />
+              <div
+                role="status"
+                className="p-3 rounded-xl bg-lime/10 border border-lime/30 text-lime text-sm font-medium flex items-center gap-2"
+              >
+                <HiCheckCircle className="w-5 h-5 shrink-0" />
                 <span>{responseMsg}</span>
               </div>
             )}
 
             {status === "error" && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium flex items-center gap-2">
-                <HiExclamationCircle className="w-4 h-4 shrink-0" />
+              <div
+                role="alert"
+                className="p-3 rounded-xl bg-rose-500/10 border border-rose-400/30 text-rose-300 text-sm font-medium flex items-center gap-2"
+              >
+                <HiExclamationCircle className="w-5 h-5 shrink-0" />
                 <span>{responseMsg}</span>
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full py-3 px-5 rounded-xl bg-brand-primary hover:bg-brand-primaryHover disabled:opacity-60 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-card transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+              className="w-full py-3 px-5 rounded-xl bg-pink text-black font-bold text-sm flex items-center justify-center gap-2 hover:shadow-glow-pink hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
             >
               {status === "loading" ? (
-                <span>Sending Message...</span>
+                <span>Sending message...</span>
               ) : (
                 <>
-                  <span>Send Message</span>
+                  <span>Send message</span>
                   <HiOutlinePaperAirplane className="w-4 h-4 rotate-45" />
                 </>
               )}
             </button>
           </form>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

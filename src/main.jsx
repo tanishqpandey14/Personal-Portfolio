@@ -1,13 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import { ThemeProvider } from './context/ThemeContext.jsx' // Import ThemeProvider
-import './styles/globals.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "@fontsource/instrument-serif";
+import "@fontsource-variable/plus-jakarta-sans";
+import App from "./App.jsx";
+import "./styles/globals.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <App />
   </React.StrictMode>,
-)
+);

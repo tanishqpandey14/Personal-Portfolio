@@ -1,5 +1,3 @@
-import React from "react";
-
 export const getIcon = (iconName, className = "w-5 h-5") => {
   if (!iconName) return null;
 
@@ -234,28 +232,12 @@ export const getIcon = (iconName, className = "w-5 h-5") => {
     );
   }
 
-  if (clean === "sun") {
-    return (
-      <svg className={`${className} text-amber-500`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-    );
-  }
-
-  if (clean === "moon") {
-    return (
-      <svg className={`${className} text-purple-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-      </svg>
-    );
-  }
-
   // ==========================================
   // 6. ABOUT SECTION FEATURE CARDS
   // ==========================================
   if (clean === "fullstack" || clean.includes("layers")) {
     return (
-      <svg className={`${className} text-brand-secondary`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <svg className={`${className} text-lime`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
       </svg>
     );
@@ -263,7 +245,7 @@ export const getIcon = (iconName, className = "w-5 h-5") => {
 
   if (clean === "backendai" || clean === "cpu") {
     return (
-      <svg className={`${className} text-brand-secondary`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <svg className={`${className} text-lime`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
       </svg>
     );
@@ -271,7 +253,7 @@ export const getIcon = (iconName, className = "w-5 h-5") => {
 
   if (clean.includes("problemsolving") || clean.includes("academic")) {
     return (
-      <svg className={`${className} text-brand-secondary`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <svg className={`${className} text-lime`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
       </svg>

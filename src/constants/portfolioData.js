@@ -131,12 +131,68 @@ export const PORTFOLIO_DATA = {
       liveUrl: "https://ai-legal-advisor-six.vercel.app/",
     },
   ],
+  // `icon` must be one of: "users", "trophy", "heart", "ball", "code", "mic", "guitar", "music"
+  // `position` (optional) is shown as a large placing on the card, e.g. "1st"
+  extracurricular: {
+    heading: "Extracurricular",
+    subheading: "Music is my other language: I play guitar and compete on stage.",
+    items: [
+      {
+        id: "extra-guitar",
+        category: "Music",
+        icon: "guitar",
+        title: "Guitarist",
+        role: "Battle of Bands winner",
+        period: "2022 - Present",
+        description:
+          "I play guitar and take it on stage. Three podium finishes in competitions, including two years running at Rock a Blast, VIT Bhopal's Battle of Bands.",
+        highlights: ["2 first places", "1 second place"],
+      },
+      {
+        id: "extra-rab-26",
+        category: "Battle of Bands",
+        icon: "trophy",
+        title: "Rock A Blast'26",
+        role: "First position",
+        position: "1st",
+        period: "26 Feb 2026",
+        description:
+          "Battle of Bands organised by the Music and Band Club during AdVITya 26 at VIT Bhopal.",
+        highlights: [],
+      },
+      {
+        id: "extra-rab-25",
+        category: "Battle of Bands",
+        icon: "trophy",
+        title: "Rock a Blast'25",
+        role: "Second position",
+        position: "2nd",
+        period: "21 Feb 2025",
+        description:
+          "Battle of Bands organised by the Music and Band Club during AdVITYya 25 at VIT Bhopal.",
+        highlights: [],
+      },
+      {
+        id: "extra-jssc",
+        category: "Song Competition",
+        icon: "mic",
+        title: "JSSC Song Competition",
+        role: "First position",
+        position: "1st",
+        period: "2022 - 23",
+        description:
+          "Jabalpur Sahodaya Schools Complex song competition, representing St. Joseph's Convent Sr. Sec. School, Ranjhi.",
+        highlights: [],
+      },
+    ],
+  },
   navLinks: [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Education", href: "#education" },
     { name: "Projects", href: "#projects" },
     { name: "GitHub", href: "#github" },
+    { name: "Extracurricular", href: "#extracurricular" },
     { name: "Contact", href: "#contact" },
   ],
 };
