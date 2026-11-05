@@ -17,7 +17,7 @@ export const Footer = () => {
   return (
     <footer className="mt-20 sm:mt-28 pt-6 pb-10 border-t border-white/10 text-center">
       <p className="px-4 text-xs sm:text-sm text-text-muted">
-        © {new Date().getFullYear()} {PORTFOLIO_DATA.personal.name}. All rights reserved.
+        © {new Date().getFullYear()} {PORTFOLIO_DATA.personal.name}
       </p>
 
       <AnimatePresence>
