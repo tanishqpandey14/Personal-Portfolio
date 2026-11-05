@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import Lenis from "@studio-freight/lenis";
-import { ThemeProvider } from "./context/ThemeContext";
 import { MainLayout } from "./components/layout/MainLayout";
 import { Hero } from "./components/sections/Hero";
 import { About } from "./components/sections/About";
@@ -8,31 +8,33 @@ import { Skills } from "./components/sections/Skills";
 import { Education } from "./components/sections/Education";
 import { Projects } from "./components/sections/Projects";
 import { GithubActivity } from "./components/sections/GithubActivity";
+import { Extracurricular } from "./components/sections/Extracurricular";
 import { Contact } from "./components/sections/Contact";
 
 function App() {
   useEffect(() => {
-    // Smoother, natural physics config
     const lenis = new Lenis({
-      lerp: 0.1, // Smoothness intensity (0.1 = silky soft, higher = stiffer)
-      wheelMultiplier: 1.0, // Prevents aggressive scrolling spikes
-      smoothTouch: false, // Keeps native touch feel on smartphones
+      lerp: 0.1, // 0.1 = silky, higher = stiffer
+      wheelMultiplier: 1.0,
+      smoothTouch: false, // keep native touch feel on phones
     });
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
 
   return (
-    <ThemeProvider>
+    // reducedMotion="user" makes every framer-motion animation honour the OS setting
+    <MotionConfig reducedMotion="user">
       <MainLayout>
         <Hero />
         <About />
@@ -40,9 +42,10 @@ function App() {
         <Education />
         <Projects />
         <GithubActivity />
+        <Extracurricular />
         <Contact />
       </MainLayout>
-    </ThemeProvider>
+    </MotionConfig>
   );
 }
 

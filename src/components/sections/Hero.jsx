@@ -1,109 +1,99 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { PORTFOLIO_DATA } from "../../constants/portfolioData";
 import { getIcon } from "../../utils/iconUtils";
 
-export const Hero = () => {
-  const { personal } = PORTFOLIO_DATA;
+// The one orchestrated moment on the page: staggered entrance on load.
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+};
+const rise = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
 
-  const handleScrollToProjects = (e) => {
+const socialClass =
+  "glass-chip grid place-items-center w-10 h-10 rounded-full text-text-primary hover:text-lime hover:border-lime/50 hover:-translate-y-0.5 transition-all duration-200";
+
+export const Hero = () => {
+  const { personal, hero } = PORTFOLIO_DATA;
+  const [firstName, ...rest] = personal.name.split(" ");
+  const lastName = rest.join(" ");
+
+  const scrollToProjects = (e) => {
     e.preventDefault();
-    const element = document.getElementById("projects");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    document
+      .getElementById("projects")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <section
       id="hero"
-      className="scroll-mt-24 min-h-[calc(100vh-160px)] flex flex-col justify-center items-center py-6 px-4"
+      className="scroll-mt-24 min-h-[calc(100vh-9rem)] flex items-center py-4 sm:py-8"
     >
-      {/* ==========================================
-        COMPACT HERO CARD
-        ========================================== */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-4xl mx-auto rounded-4xl bg-bg-card border border-border-light shadow-md px-6 pt-8 pb-5 sm:px-10 sm:pt-10 sm:pb-6 text-center space-y-5 sm:space-y-6 relative overflow-hidden transition-all duration-300"
-      >
-        {/* Soft Background Accent Glow inside the card */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-28 bg-linear-to-b from-brand-primary/10 via-brand-secondary/5 to-transparent blur-2xl pointer-events-none rounded-full" />
+      <div className="w-full">
+        {/* ---------- Copy ---------- */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="space-y-6 max-w-3xl"
+        >
+          <motion.div variants={rise}>
+            <p className="text-base sm:text-lg text-text-secondary font-medium mb-2">
+              {hero.greeting}
+            </p>
+            <h1 className="font-display font-normal tracking-tight leading-[0.9] text-text-primary text-7xl sm:text-8xl xl:text-[9.5rem]">
+              <span className="block">{firstName}</span>
+              <span className="block">{lastName}</span>
+            </h1>
+          </motion.div>
 
-        {/* Main Title & Headline */}
-        <div className="relative z-10 space-y-2">
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-text-primary leading-tight">
-            Hello, I&apos;m{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-primary via-brand-secondary to-brand-accent">
-              {personal.name}
-            </span>
-          </h1>
-          <p className="text-lg sm:text-xl font-bold text-brand-secondary">
-            {personal.tagline || "Full Stack Developer"}
-          </p>
-        </div>
+          <motion.p variants={rise} className="text-xl sm:text-2xl font-semibold text-pink">
+            {hero.title}
+          </motion.p>
 
-        {/* Bio Paragraph */}
-        <p className="relative z-10 text-text-secondary text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-          {personal.bio}
-        </p>
-
-        {/* Action Buttons */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
-          {/* View My Work Button */}
-          <a
-            href="#projects"
-            onClick={handleScrollToProjects}
-            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-medium text-sm transition-all shadow-sm flex items-center justify-center gap-2 group"
+          <motion.p
+            variants={rise}
+            className="text-sm sm:text-base text-text-secondary leading-relaxed max-w-xl"
           >
-            <span>View My Work</span>
-            <span className="text-base transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
+            {hero.description}
+          </motion.p>
 
-          {/* Download Resume Button */}
-          <a
-            href={personal.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-bg-primary hover:bg-bg-primary/80 text-text-primary border border-border-medium font-medium text-sm transition-all shadow-2xs flex items-center justify-center gap-2"
-          >
-            <span>Download Resume</span>
-            {getIcon("download", "w-4 h-4 text-brand-secondary")}
-          </a>
-        </div>
+          <motion.div variants={rise} className="flex flex-col sm:flex-row gap-3 pt-1">
+            <a
+              href="#projects"
+              onClick={scrollToProjects}
+              className="px-6 py-3 rounded-xl bg-pink text-black font-bold text-sm flex items-center justify-center hover:shadow-glow-pink hover:-translate-y-0.5 transition-all duration-200"
+            >
+              View my work
+            </a>
+            <a
+              href={personal.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-chip px-6 py-3 rounded-xl text-text-primary font-bold text-sm flex items-center justify-center gap-2 hover:border-lime/50 hover:text-lime transition-colors duration-200"
+            >
+              {getIcon("download", "w-4 h-4")}
+              Download resume
+            </a>
+          </motion.div>
 
-        {/* Social Links Row (Compact Padding) */}
-        <div className="relative z-10 flex items-center justify-center gap-3.5 pt-4 pb-1 border-t border-border-light/60">
-          <a
-            href={personal.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub Profile"
-            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-text-primary border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
-          >
-            {getIcon("github", "w-4 h-4")}
-          </a>
+          <motion.div variants={rise} className="flex items-center gap-3 pt-1">
+            <a href={personal.socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className={socialClass}>
+              {getIcon("github", "w-4 h-4")}
+            </a>
+            <a href={personal.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className={socialClass}>
+              {getIcon("linkedin", "w-4 h-4")}
+            </a>
+            <a href={`mailto:${personal.email}`} aria-label="Email me" className={socialClass}>
+              {getIcon("email", "w-4 h-4")}
+            </a>
+          </motion.div>
+        </motion.div>
 
-          <a
-            href={personal.socials.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn Profile"
-            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-[#0A66C2] border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
-          >
-            {getIcon("linkedin", "w-4 h-4")}
-          </a>
-
-          <a
-            href={`mailto:${personal.email}`}
-            aria-label="Email Me"
-            className="p-2.5 rounded-full bg-bg-primary hover:bg-bg-primary/80 text-brand-secondary border border-border-light shadow-2xs hover:scale-110 transition-all duration-200"
-          >
-            {getIcon("email", "w-4 h-4")}
-          </a>
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

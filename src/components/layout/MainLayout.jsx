@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
@@ -7,20 +7,23 @@ export const MainLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary transition-colors duration-300 overflow-x-hidden">
-      <div className="w-full flex relative">
-        {/* Sidebar Component */}
+    <div className="relative min-h-screen text-text-primary overflow-x-clip">
+      {/* Fixed colour glows: this is what the glass panels blur */}
+      <div
+        aria-hidden="true"
+        className="ambient fixed inset-0 z-0 pointer-events-none"
+      />
+
+      <div className="relative z-10 w-full flex">
         <Sidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-
-        {/* Fixed Navbar Component */}
         <Navbar onOpenSidebar={() => setIsSidebarOpen(true)} />
 
-        {/* Right Scrollable Main Content Area */}
-        <div className="flex-1 lg:pl-80 w-full min-w-0 px-3 pt-16 sm:pt-24 lg:pt-28 pb-4 lg:p-8">
-          <main className="space-y-12 sm:space-y-24 max-w-5xl mx-auto">
+        {/* Main scrolling column. Left padding clears the floating sidebar */}
+        <div className="flex-1 w-full min-w-0 px-4 pt-20 sm:pt-28 pb-6 lg:pl-88 lg:pr-10">
+          <main className="space-y-20 sm:space-y-28 max-w-5xl mx-auto">
             {children}
           </main>
           <Footer />
